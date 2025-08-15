@@ -8,15 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
   projectType: z.string().min(1, "Selecione o tipo de projeto"),
   description: z.string().min(10, "Descrição deve ter pelo menos 10 caracteres"),
-  budget: z.string().optional(),
+  budget: z.string().optional()
 });
-
 const Contact = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -25,42 +23,34 @@ const Contact = () => {
       email: "",
       projectType: "",
       description: "",
-      budget: "",
-    },
+      budget: ""
+    }
   });
-
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
     // Aqui você pode processar os dados do formulário
     // Por exemplo, enviar para uma API ou email
   };
-
-  const contactMethods = [
-    {
-      icon: Mail,
-      title: "Email",
-      description: "Mande um email com sua ideia",
-      action: "Enviar email",
-      link: "mailto:contato@exemplo.com"
-    },
-    {
-      icon: MessageCircle,
-      title: "WhatsApp", 
-      description: "Vamos conversar no WhatsApp",
-      action: "Iniciar conversa",
-      link: "https://wa.me/5511999999999"
-    },
-    {
-      icon: Calendar,
-      title: "Reunião",
-      description: "Agende uma reunião online",
-      action: "Agendar",
-      link: "#"
-    }
-  ];
-
-  return (
-    <section className="py-24 relative">
+  const contactMethods = [{
+    icon: Mail,
+    title: "Email",
+    description: "Mande um email com sua ideia",
+    action: "Enviar email",
+    link: "mailto:contato@exemplo.com"
+  }, {
+    icon: MessageCircle,
+    title: "WhatsApp",
+    description: "Vamos conversar no WhatsApp",
+    action: "Iniciar conversa",
+    link: "https://wa.me/5511999999999"
+  }, {
+    icon: Calendar,
+    title: "Reunião",
+    description: "Agende uma reunião online",
+    action: "Agendar",
+    link: "#"
+  }];
+  return <section className="py-24 relative">
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
@@ -80,12 +70,7 @@ const Contact = () => {
 
         {/* Contact Methods */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {contactMethods.map((method) => (
-            <a 
-              key={method.title}
-              href={method.link}
-              className="block card-gradient rounded-2xl p-8 text-center hover-lift group transition-all duration-300"
-            >
+          {contactMethods.map(method => <a key={method.title} href={method.link} className="block card-gradient rounded-2xl p-8 text-center hover-lift group transition-all duration-300">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-6 group-hover:bg-primary/30 transition-colors">
                 <method.icon className="text-primary" size={28} />
               </div>
@@ -97,8 +82,7 @@ const Contact = () => {
                 {method.action}
                 <ArrowRight size={16} />
               </div>
-            </a>
-          ))}
+            </a>)}
         </div>
 
         {/* Project Form */}
@@ -117,41 +101,31 @@ const Contact = () => {
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="name" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Seu nome</FormLabel>
                           <FormControl>
                             <Input placeholder="João Silva" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                     
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="email" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Seu email</FormLabel>
                           <FormControl>
                             <Input placeholder="joao@exemplo.com" type="email" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="projectType"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="projectType" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Tipo de projeto</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -169,15 +143,11 @@ const Contact = () => {
                             </SelectContent>
                           </Select>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                     
-                    <FormField
-                      control={form.control}
-                      name="budget"
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="budget" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Orçamento estimado (opcional)</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -194,28 +164,18 @@ const Contact = () => {
                             </SelectContent>
                           </Select>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        </FormItem>} />
                   </div>
 
-                  <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="description" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Descrição da sua ideia</FormLabel>
                         <FormControl>
-                          <Textarea 
-                            placeholder="Conte-me sobre sua ideia, objetivos, público-alvo e qualquer detalhe importante que você considera relevante..."
-                            className="min-h-[120px]"
-                            {...field}
-                          />
+                          <Textarea placeholder="Conte-me sobre sua ideia, objetivos, público-alvo e qualquer detalhe importante que você considera relevante..." className="min-h-[120px]" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                      </FormItem>} />
 
                   <div className="flex justify-center pt-4">
                     <Button type="submit" variant="hero" size="lg" className="min-w-[200px]">
@@ -235,9 +195,9 @@ const Contact = () => {
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="grid grid-cols-6 gap-4 h-full rotate-12 scale-150">
-                {Array.from({ length: 24 }).map((_, i) => (
-                  <div key={i} className="bg-white/20 rounded"></div>
-                ))}
+                {Array.from({
+                length: 24
+              }).map((_, i) => <div key={i} className="bg-white/20 rounded"></div>)}
               </div>
             </div>
             
@@ -250,20 +210,12 @@ const Contact = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="secondary" 
-                  size="lg" 
-                  className="bg-white text-primary hover:bg-white/90"
-                >
+                <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90">
                   Chamar no WhatsApp
                   <ArrowRight size={20} />
                 </Button>
                 
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="border-white/30 text-white hover:bg-white/10"
-                >
+                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
                   Ver portfolio
                 </Button>
               </div>
@@ -278,7 +230,7 @@ const Contact = () => {
         {/* Trust Indicators */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 text-center">
           <div>
-            <div className="text-2xl font-bold text-primary mb-1">5 anos</div>
+            <div className="text-2xl font-bold text-primary mb-1">9 anos</div>
             <div className="text-sm text-muted-foreground">de experiência</div>
           </div>
           <div>
@@ -295,8 +247,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Contact;
