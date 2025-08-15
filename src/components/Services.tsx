@@ -1,4 +1,4 @@
-import { Monitor, Mail, Share2, Instagram, BarChart3, Target, Palette, Code, Megaphone } from "lucide-react";
+import { Monitor, Mail, Share2, Instagram, BarChart3, Target, Code, Megaphone } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -37,12 +37,6 @@ const Services = () => {
       title: "Pixel & Tracking",
       description: "Rastreamento completo para otimizar campanhas e maximizar ROI",
       features: ["Facebook Pixel", "Conversions API", "Otimização de campanhas"]
-    },
-    {
-      icon: Palette,
-      title: "Design Gráfico",
-      description: "Identidade visual consistente que comunica seus valores",
-      features: ["Logo e branding", "Materiais gráficos", "Papelaria digital"]
     },
     {
       icon: Code,
