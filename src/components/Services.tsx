@@ -1,4 +1,4 @@
-import { Monitor, Mail, Share2, Instagram, BarChart3, Target, Code, Megaphone } from "lucide-react";
+import { Monitor, Mail, Share2, Instagram, BarChart3, Target, Code, Megaphone, Route, Users, TrendingUp, GitBranch, Lightbulb } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -39,10 +39,34 @@ const Services = () => {
       features: ["Facebook Pixel", "Conversions API", "Otimização de campanhas"]
     },
     {
-      icon: Code,
-      title: "Desenvolvimento Web",
-      description: "Sites modernos, rápidos e otimizados para todos os dispositivos",
-      features: ["Sites responsivos", "Performance otimizada", "SEO técnico"]
+      icon: Route,
+      title: "Journey Mapping & Experience Redesign",
+      description: "Mapeamento completo da jornada do usuário para resolver problemas de experiência",
+      features: ["Onboarding confuso", "Funis com alta taxa de desistência", "Experiências desconectadas"]
+    },
+    {
+      icon: Users,
+      title: "User Research & UX Discovery",
+      description: "Entrevistas, testes e análise de comportamento para descobrir necessidades reais",
+      features: ["Lançamento de novos serviços", "Identificação de oportunidades", "Compreensão do churn"]
+    },
+    {
+      icon: TrendingUp,
+      title: "Data Analysis for Experience",
+      description: "Transformo dados em decisões acionáveis usando Analytics e heatmaps",
+      features: ["Decisões baseadas em evidências", "Diagnósticos de performance", "Monitoramento de KPIs"]
+    },
+    {
+      icon: GitBranch,
+      title: "Service Blueprints & Architecture",
+      description: "Blueprints visuais que alinham frontstage e backstage para experiências consistentes",
+      features: ["Escalar produtos digitais", "Serviços mais consistentes", "Alinhar equipes internas"]
+    },
+    {
+      icon: Lightbulb,
+      title: "Workshop Facilitation & Co-creation",
+      description: "Facilito workshops para acelerar soluções e gerar alinhamento entre equipes",
+      features: ["Design Sprint", "Alinhamento multidisciplinar", "Resolução colaborativa"]
     },
     {
       icon: Megaphone,
