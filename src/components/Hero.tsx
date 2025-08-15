@@ -17,7 +17,7 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">
-            <div className="space-y-4">
+            <div className="space-y-4 mt-5">
               <div className="flex items-center gap-2 text-secondary">
                 <Sparkles size={20} />
                 <span className="text-sm font-medium tracking-wider uppercase">Service Designer</span>
