@@ -1,7 +1,40 @@
 import { Button } from "@/components/ui/button";
-import { Mail, MessageCircle, Calendar, ArrowRight } from "lucide-react";
+import { Mail, MessageCircle, Calendar, ArrowRight, Send } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  projectType: z.string().min(1, "Selecione o tipo de projeto"),
+  description: z.string().min(10, "Descrição deve ter pelo menos 10 caracteres"),
+  budget: z.string().optional(),
+});
 
 const Contact = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      projectType: "",
+      description: "",
+      budget: "",
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+    // Aqui você pode processar os dados do formulário
+    // Por exemplo, enviar para uma API ou email
+  };
+
   const contactMethods = [
     {
       icon: Mail,
@@ -68,6 +101,134 @@ const Contact = () => {
           ))}
         </div>
 
+        {/* Project Form */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <Card className="card-gradient">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl lg:text-4xl font-bold mb-4">
+                Conte-me sobre sua <span className="text-gradient">ideia</span>
+              </CardTitle>
+              <CardDescription className="text-lg">
+                Preencha o formulário abaixo e vamos conversar sobre como transformar sua ideia em realidade
+              </CardDescription>
+            </CardHeader>
+            
+            <CardContent className="p-8">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Seu nome</FormLabel>
+                          <FormControl>
+                            <Input placeholder="João Silva" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Seu email</FormLabel>
+                          <FormControl>
+                            <Input placeholder="joao@exemplo.com" type="email" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="projectType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tipo de projeto</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecione o tipo" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="website">Website/Landing Page</SelectItem>
+                              <SelectItem value="webapp">Aplicação Web</SelectItem>
+                              <SelectItem value="ecommerce">E-commerce</SelectItem>
+                              <SelectItem value="mobile">App Mobile</SelectItem>
+                              <SelectItem value="sistema">Sistema Interno</SelectItem>
+                              <SelectItem value="outros">Outros</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="budget"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Orçamento estimado (opcional)</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecione a faixa" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="ate-5k">Até R$ 5.000</SelectItem>
+                              <SelectItem value="5k-15k">R$ 5.000 - R$ 15.000</SelectItem>
+                              <SelectItem value="15k-30k">R$ 15.000 - R$ 30.000</SelectItem>
+                              <SelectItem value="30k-plus">Acima de R$ 30.000</SelectItem>
+                              <SelectItem value="conversar">Prefiro conversar</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Descrição da sua ideia</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Conte-me sobre sua ideia, objetivos, público-alvo e qualquer detalhe importante que você considera relevante..."
+                            className="min-h-[120px]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="flex justify-center pt-4">
+                    <Button type="submit" variant="hero" size="lg" className="min-w-[200px]">
+                      Enviar proposta
+                      <Send size={20} />
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Main CTA */}
         <div className="max-w-4xl mx-auto">
           <div className="hero-gradient rounded-3xl p-12 text-center relative overflow-hidden">
@@ -82,11 +243,10 @@ const Contact = () => {
             
             <div className="relative z-10">
               <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-                Transforme sua ideia em realidade
+                Ou prefere conversar direto?
               </h3>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Não deixe sua ideia só na cabeça. Vamos trabalhar juntos 
-                para criar algo incrível que seus clientes vão amar.
+                Não tem problema! Escolha a forma que preferir para entrarmos em contato.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -95,7 +255,7 @@ const Contact = () => {
                   size="lg" 
                   className="bg-white text-primary hover:bg-white/90"
                 >
-                  Começar meu projeto agora
+                  Chamar no WhatsApp
                   <ArrowRight size={20} />
                 </Button>
                 
