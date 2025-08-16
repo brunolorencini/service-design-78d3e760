@@ -13,6 +13,7 @@ import { useContactForm } from "@/hooks/use-contact-form";
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
+  phone: z.string().min(10, "Telefone deve ter pelo menos 10 dígitos"),
   projectType: z.string().min(1, "Selecione o tipo de projeto"),
   description: z.string().min(10, "Descrição deve ter pelo menos 10 caracteres"),
   budget: z.string().optional()
@@ -25,6 +26,7 @@ const Contact = () => {
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
       projectType: "",
       description: "",
       budget: ""
@@ -35,6 +37,7 @@ const Contact = () => {
     await submitForm({
       name: values.name,
       email: values.email,
+      phone: values.phone,
       project_type: values.projectType,
       description: values.description,
       budget: values.budget
@@ -112,28 +115,38 @@ const Contact = () => {
             
             <CardContent className="p-8">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <FormField control={form.control} name="name" render={({
-                    field
-                  }) => <FormItem>
-                          <FormLabel>Seu nome</FormLabel>
-                          <FormControl>
-                            <Input placeholder="João Silva" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>} />
-                    
-                    <FormField control={form.control} name="email" render={({
-                    field
-                  }) => <FormItem>
-                          <FormLabel>Seu email</FormLabel>
-                          <FormControl>
-                            <Input placeholder="joao@exemplo.com" type="email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>} />
-                  </div>
+                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                   <div className="grid md:grid-cols-3 gap-6">
+                     <FormField control={form.control} name="name" render={({
+                     field
+                   }) => <FormItem>
+                           <FormLabel>Seu nome</FormLabel>
+                           <FormControl>
+                             <Input placeholder="João Silva" {...field} />
+                           </FormControl>
+                           <FormMessage />
+                         </FormItem>} />
+                     
+                     <FormField control={form.control} name="email" render={({
+                     field
+                   }) => <FormItem>
+                           <FormLabel>Seu email</FormLabel>
+                           <FormControl>
+                             <Input placeholder="joao@exemplo.com" type="email" {...field} />
+                           </FormControl>
+                           <FormMessage />
+                         </FormItem>} />
+
+                     <FormField control={form.control} name="phone" render={({
+                     field
+                   }) => <FormItem>
+                           <FormLabel>WhatsApp</FormLabel>
+                           <FormControl>
+                             <Input placeholder="(11) 99999-9999" type="tel" {...field} />
+                           </FormControl>
+                           <FormMessage />
+                         </FormItem>} />
+                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <FormField control={form.control} name="projectType" render={({

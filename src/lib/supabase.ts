@@ -11,4 +11,4 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
 
 // Re-export types for convenience
-export type { ContactForm } from '@/types/supabase'
+export type { ContactForm, Lead } from '@/types/supabase'

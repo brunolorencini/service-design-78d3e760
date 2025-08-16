@@ -66,8 +66,21 @@ npm install @supabase/supabase-js
 2. Preencha o formulário de contato na página
 3. Verifique se os dados aparecem na tabela `contact_forms` no Supabase
 
-## Estrutura da tabela
+## Estrutura das tabelas
 
+### Tabela `leads` (principal)
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| id | UUID | ID único do registro |
+| name | TEXT | Nome do contato |
+| email | TEXT | Email do contato |
+| phone | TEXT | Telefone/WhatsApp |
+| project_type | TEXT | Tipo de projeto |
+| description | TEXT | Descrição do projeto |
+| budget | TEXT | Orçamento estimado |
+| created_at | TIMESTAMP | Data e hora de criação |
+
+### Tabela `contact_forms` (legado)
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
 | id | UUID | ID único do registro |
@@ -81,6 +94,10 @@ npm install @supabase/supabase-js
 ## Funcionalidades implementadas
 
 - ✅ Envio de formulário de contato
+- ✅ Campo de telefone/WhatsApp
+- ✅ Envio automático de email para bruno.lorencini@gmail.com
+- ✅ Salvamento na tabela de leads do Supabase
+- ✅ Data e hora automática de preenchimento
 - ✅ Validação de dados
 - ✅ Feedback visual (loading, sucesso, erro)
 - ✅ Integração com Supabase

@@ -2,6 +2,18 @@ export interface ContactForm {
   id?: string
   name: string
   email: string
+  phone: string
+  project_type: string
+  description: string
+  budget?: string
+  created_at?: string
+}
+
+export interface Lead {
+  id?: string
+  name: string
+  email: string
+  phone: string
   project_type: string
   description: string
   budget?: string
@@ -15,6 +27,11 @@ export interface Database {
         Row: ContactForm
         Insert: Omit<ContactForm, 'id' | 'created_at'>
         Update: Partial<Omit<ContactForm, 'id' | 'created_at'>>
+      }
+      leads: {
+        Row: Lead
+        Insert: Omit<Lead, 'id' | 'created_at'>
+        Update: Partial<Omit<Lead, 'id' | 'created_at'>>
       }
     }
     Views: {
