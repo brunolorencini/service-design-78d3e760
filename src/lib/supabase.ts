@@ -17,9 +17,14 @@ const createMockClient = () => {
   } as any
 }
 
-// Safely get environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+// Safely get environment variables and clean them
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.trim()
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim().replace(/\s+/g, '')
+
+// Debug environment variables
+console.log('🔍 Environment variables check:')
+console.log('URL:', supabaseUrl ? '✅ Found' : '❌ Missing')
+console.log('Key:', supabaseAnonKey ? '✅ Found' : '❌ Missing')
 
 // Create real or mock client based on environment variables
 let supabaseClient: any
@@ -29,6 +34,7 @@ try {
     supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey)
     console.log('✅ Supabase client initialized successfully')
   } else {
+    console.warn('⚠️ Missing environment variables, using mock client')
     supabaseClient = createMockClient()
   }
 } catch (error) {
