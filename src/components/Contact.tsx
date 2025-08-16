@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useContactForm } from "@/hooks/use-contact-form";
-import { testSupabaseConnection } from "@/test-supabase";
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
@@ -221,7 +220,7 @@ const Contact = () => {
                     </Alert>
                   )}
 
-                                     <div className="flex justify-center pt-4 gap-4">
+                                     <div className="flex justify-center pt-4">
                      <Button 
                        type="submit" 
                        variant="hero" 
@@ -241,17 +240,6 @@ const Contact = () => {
                          </>
                        )}
                      </Button>
-                     
-                     {import.meta.env.DEV && (
-                       <Button 
-                         type="button" 
-                         variant="outline" 
-                         size="lg"
-                         onClick={() => testSupabaseConnection()}
-                       >
-                         🧪 Testar Supabase
-                       </Button>
-                     )}
                    </div>
                 </form>
               </Form>
