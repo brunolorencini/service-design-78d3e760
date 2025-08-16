@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/supabase'
+import { SUPABASE_CONFIG } from '@/config/supabase'
 
 // Create a mock client that always works
 const createMockClient = () => {
@@ -17,16 +18,16 @@ const createMockClient = () => {
   } as any
 }
 
-// Safely get environment variables and clean them
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.trim()
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim().replace(/\s+/g, '')
+// Use configuration from config file
+const supabaseUrl = SUPABASE_CONFIG.url
+const supabaseAnonKey = SUPABASE_CONFIG.anonKey
 
-// Debug environment variables
-console.log('🔍 Environment variables check:')
+// Debug configuration
+console.log('🔍 Supabase configuration:')
 console.log('URL:', supabaseUrl ? '✅ Found' : '❌ Missing')
 console.log('Key:', supabaseAnonKey ? '✅ Found' : '❌ Missing')
 
-// Create real or mock client based on environment variables
+// Create real or mock client based on configuration
 let supabaseClient: any
 
 try {
@@ -34,7 +35,7 @@ try {
     supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey)
     console.log('✅ Supabase client initialized successfully')
   } else {
-    console.warn('⚠️ Missing environment variables, using mock client')
+    console.warn('⚠️ Missing configuration, using mock client')
     supabaseClient = createMockClient()
   }
 } catch (error) {
