@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useContactForm } from "@/hooks/use-contact-form";
+import { testSupabaseConnection } from "@/test-supabase";
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
@@ -220,27 +221,38 @@ const Contact = () => {
                     </Alert>
                   )}
 
-                  <div className="flex justify-center pt-4">
-                    <Button 
-                      type="submit" 
-                      variant="hero" 
-                      size="lg" 
-                      className="min-w-[200px]"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? (
-                        <>
-                          Enviando...
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                        </>
-                      ) : (
-                        <>
-                          Enviar proposta
-                          <Send size={20} />
-                        </>
-                      )}
-                    </Button>
-                  </div>
+                                     <div className="flex justify-center pt-4 gap-4">
+                     <Button 
+                       type="submit" 
+                       variant="hero" 
+                       size="lg" 
+                       className="min-w-[200px]"
+                       disabled={isLoading}
+                     >
+                       {isLoading ? (
+                         <>
+                           Enviando...
+                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                         </>
+                       ) : (
+                         <>
+                           Enviar proposta
+                           <Send size={20} />
+                         </>
+                       )}
+                     </Button>
+                     
+                     {import.meta.env.DEV && (
+                       <Button 
+                         type="button" 
+                         variant="outline" 
+                         size="lg"
+                         onClick={() => testSupabaseConnection()}
+                       >
+                         🧪 Testar Supabase
+                       </Button>
+                     )}
+                   </div>
                 </form>
               </Form>
             </CardContent>
