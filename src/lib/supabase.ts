@@ -1,9 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/supabase'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
 // Create a mock client that always works
 const createMockClient = () => {
   console.warn('⚠️ Supabase environment variables not found. Using mock client.')
@@ -20,10 +17,26 @@ const createMockClient = () => {
   } as any
 }
 
+// Safely get environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
 // Create real or mock client based on environment variables
-export const supabase = (supabaseUrl && supabaseAnonKey) 
-  ? createClient<Database>(supabaseUrl, supabaseAnonKey)
-  : createMockClient()
+let supabaseClient: any
+
+try {
+  if (supabaseUrl && supabaseAnonKey) {
+    supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey)
+    console.log('✅ Supabase client initialized successfully')
+  } else {
+    supabaseClient = createMockClient()
+  }
+} catch (error) {
+  console.error('❌ Error initializing Supabase client:', error)
+  supabaseClient = createMockClient()
+}
+
+export const supabase = supabaseClient
 
 // Re-export types for convenience
 export type { ContactForm, Lead } from '@/types/supabase'
