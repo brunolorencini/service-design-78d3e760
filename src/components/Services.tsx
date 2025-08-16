@@ -1,4 +1,5 @@
-import { Monitor, Mail, Share2, Instagram, BarChart3, Target, Code, Megaphone, Route, Users, TrendingUp, GitBranch, Lightbulb } from "lucide-react";
+import { Monitor, Mail, Share2, Instagram, BarChart3, Target, Code, Megaphone, Route, Users, TrendingUp, GitBranch, Lightbulb, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Services = () => {
   const services = [
@@ -146,6 +147,12 @@ const Services = () => {
                 Trabalho com soluções personalizadas para cada projeto. Vamos conversar!
               </p>
             </div>
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://wa.me/351934078424" target="_blank" rel="noopener noreferrer">
+                Conversar
+                <ArrowRight size={16} />
+              </a>
+            </Button>
           </div>
         </div>
       </div>

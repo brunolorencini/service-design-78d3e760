@@ -38,13 +38,17 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group">
-                Vamos conversar sobre seu projeto
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+              <Button variant="hero" size="lg" className="group" asChild>
+                <a href="https://wa.me/351934078424" target="_blank" rel="noopener noreferrer">
+                  Vamos conversar sobre seu projeto
+                  <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                </a>
               </Button>
               
-              <Button variant="outline" size="lg">
-                Ver meu trabalho
+              <Button variant="outline" size="lg" asChild>
+                <a href="https://rebel-dog-6e7.notion.site/Welcome-Bem-vindo-24784a3712c7804988efd15f3ce2a582" target="_blank" rel="noopener noreferrer">
+                  Ver meu trabalho
+                </a>
               </Button>
             </div>
 

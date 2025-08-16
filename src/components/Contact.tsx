@@ -36,19 +36,19 @@ const Contact = () => {
     title: "Email",
     description: "Mande um email com sua ideia",
     action: "Enviar email",
-    link: "mailto:contato@exemplo.com"
+    link: "mailto:bruno.lorencini@gmail.com"
   }, {
     icon: MessageCircle,
     title: "WhatsApp",
     description: "Vamos conversar no WhatsApp",
     action: "Iniciar conversa",
-    link: "https://wa.me/5511999999999"
+    link: "https://wa.me/351934078424"
   }, {
     icon: Calendar,
     title: "Reunião",
     description: "Agende uma reunião online",
     action: "Agendar",
-    link: "#"
+    link: "https://calendly.com/brulorencini/30min"
   }];
   return <section className="py-24 relative">
       {/* Background Elements */}
@@ -210,13 +210,17 @@ const Contact = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90">
-                  Chamar no WhatsApp
-                  <ArrowRight size={20} />
+                <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
+                  <a href="https://wa.me/351934078424" target="_blank" rel="noopener noreferrer">
+                    Chamar no WhatsApp
+                    <ArrowRight size={20} />
+                  </a>
                 </Button>
                 
-                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                  Ver portfolio
+                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10" asChild>
+                  <a href="https://rebel-dog-6e7.notion.site/Welcome-Bem-vindo-24784a3712c7804988efd15f3ce2a582" target="_blank" rel="noopener noreferrer">
+                    Ver portfolio
+                  </a>
                 </Button>
               </div>
               
