@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Mail, MessageCircle, Calendar, ArrowRight, Send } from "lucide-react";
+import { Mail, MessageCircle, Calendar, ArrowRight, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useContactForm } from "@/hooks/use-contact-form";
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
@@ -16,6 +18,8 @@ const formSchema = z.object({
   budget: z.string().optional()
 });
 const Contact = () => {
+  const { isLoading, error, success, submitForm, resetForm } = useContactForm();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,10 +30,19 @@ const Contact = () => {
       budget: ""
     }
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    // Aqui você pode processar os dados do formulário
-    // Por exemplo, enviar para uma API ou email
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await submitForm({
+      name: values.name,
+      email: values.email,
+      project_type: values.projectType,
+      description: values.description,
+      budget: values.budget
+    });
+    
+    if (success) {
+      form.reset();
+    }
   };
   const contactMethods = [{
     icon: Mail,
@@ -177,10 +190,42 @@ const Contact = () => {
                         <FormMessage />
                       </FormItem>} />
 
+                  {/* Status Messages */}
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
+
+                  {success && (
+                    <Alert className="border-green-200 bg-green-50 text-green-800">
+                      <CheckCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        Mensagem enviada com sucesso! Entrarei em contato em breve.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
                   <div className="flex justify-center pt-4">
-                    <Button type="submit" variant="hero" size="lg" className="min-w-[200px]">
-                      Enviar proposta
-                      <Send size={20} />
+                    <Button 
+                      type="submit" 
+                      variant="hero" 
+                      size="lg" 
+                      className="min-w-[200px]"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          Enviando...
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        </>
+                      ) : (
+                        <>
+                          Enviar proposta
+                          <Send size={20} />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
