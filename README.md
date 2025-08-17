@@ -1,8 +1,53 @@
-# Welcome to your Lovable project
+# Service Design - Portfolio Profissional
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/9daefb75-2102-4f59-8b07-7c4f6298a67c
+
+## Configuração do Supabase
+
+Este projeto utiliza o Supabase como backend para armazenar formulários de contato. Para configurar:
+
+### 1. Configuração Automática (Recomendado)
+
+**Windows (PowerShell):**
+```powershell
+.\setup-env.ps1
+```
+
+**Linux/Mac:**
+```bash
+chmod +x setup-env.sh
+./setup-env.sh
+```
+
+### 2. Configuração Manual
+
+1. Copie o arquivo de exemplo:
+   ```bash
+   cp env.local.example .env.local
+   ```
+
+2. As credenciais já estão configuradas no arquivo `env.local.example`
+
+### 3. Configuração MCP (Model Context Protocol)
+
+O arquivo `mcp.json` já está configurado para integração com o Supabase:
+
+```json
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-supabase"],
+      "env": {
+        "SUPABASE_URL": "https://uwcobhhtyuzjkojobenz.supabase.co",
+        "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      }
+    }
+  }
+}
+```
 
 ## How can I edit this code?
 

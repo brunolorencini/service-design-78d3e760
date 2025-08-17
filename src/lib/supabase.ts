@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/supabase'
-import { SUPABASE_CONFIG } from '@/config/supabase'
 
 // Create a mock client that always works
 const createMockClient = () => {
@@ -18,9 +17,9 @@ const createMockClient = () => {
   } as any
 }
 
-// Use configuration from config file
-const supabaseUrl = SUPABASE_CONFIG.url
-const supabaseAnonKey = SUPABASE_CONFIG.anonKey
+// Use environment variables first, fallback to config file
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://uwcobhhtyuzjkojobenz.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3Y29iaGh0eXV6amtvam9iZW56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxODQ1OTQsImV4cCI6MjA3MDc2MDU5NH0._ou4A_QZye1dMAI0UncADmYOswrX6O39FJHDg680-SU'
 
 // Debug configuration
 console.log('🔍 Supabase configuration:')
