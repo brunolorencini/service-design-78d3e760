@@ -242,28 +242,70 @@ const Contact = () => {
                         </FormControl>
                         <FormMessage />
                         
-                        {/* Proposal Generator Button */}
+                        {/* Proposal Options */}
                         {field.value && field.value.length >= 10 && (
-                          <div className="mt-4 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <h4 className="font-semibold text-primary flex items-center gap-2">
-                                  <Sparkles size={20} />
-                                  Quer uma proposta personalizada?
-                                </h4>
-                                <p className="text-sm text-muted-foreground mt-1">
-                                  Nossa IA pode gerar uma proposta detalhada baseada na sua ideia
-                                </p>
+                          <div className="mt-4 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border border-primary/20">
+                            <div className="text-center mb-4">
+                              <h4 className="font-bold text-primary flex items-center justify-center gap-2 text-lg">
+                                <Sparkles size={24} />
+                                Sua ideia está pronta!
+                              </h4>
+                              <p className="text-muted-foreground mt-2">
+                                O que você gostaria de fazer agora?
+                              </p>
+                            </div>
+                            
+                            <div className="grid md:grid-cols-2 gap-4">
+                              {/* Direct Send Button - More Attractive */}
+                              <div className="relative">
+                                <Button 
+                                  type="button"
+                                  variant="hero"
+                                  size="lg"
+                                  onClick={() => {
+                                    // Trigger form submission directly
+                                    form.handleSubmit(onSubmit)();
+                                  }}
+                                  className="w-full h-auto py-4 px-6 hero-gradient hover:scale-105 transition-all duration-300"
+                                >
+                                  <div className="text-center">
+                                    <div className="flex items-center justify-center gap-2 mb-1">
+                                      <Send size={20} />
+                                      <span className="font-bold">Enviar Agora</span>
+                                    </div>
+                                    <div className="text-sm opacity-90">
+                                      Sua ideia já está ótima!
+                                    </div>
+                                  </div>
+                                </Button>
+                                {/* Attractive Badge */}
+                                <div className="absolute -top-2 -right-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+                                  ⚡ Rápido
+                                </div>
                               </div>
+
+                              {/* AI Refinement Button */}
                               <Button 
                                 type="button"
                                 variant="outline" 
+                                size="lg"
                                 onClick={handleStartProposalGenerator}
-                                className="ml-4 border-primary/30 hover:bg-primary/10"
+                                className="w-full h-auto py-4 px-6 border-primary/30 hover:bg-primary/10 transition-all duration-300"
                               >
-                                <Wand2 size={16} className="mr-2" />
-                                Gerar Proposta
+                                <div className="text-center">
+                                  <div className="flex items-center justify-center gap-2 mb-1">
+                                    <Wand2 size={20} />
+                                    <span className="font-semibold">Refinar com IA</span>
+                                  </div>
+                                  <div className="text-sm text-muted-foreground">
+                                    Deixe nossa IA melhorar sua proposta
+                                  </div>
+                                </div>
                               </Button>
+                            </div>
+                            
+                            <div className="text-center mt-3 text-xs text-muted-foreground">
+                              💡 Dica: Se sua ideia já está clara, pode enviar direto!
                             </div>
                           </div>
                         )}
@@ -296,27 +338,30 @@ const Contact = () => {
                     </Alert>
                   )}
 
-                                     <div className="flex justify-center pt-4">
-                     <Button 
-                       type="submit" 
-                       variant="hero" 
-                       size="lg" 
-                       className="min-w-[200px]"
-                       disabled={isLoading}
-                     >
-                       {isLoading ? (
-                         <>
-                           Enviando...
-                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                         </>
-                       ) : (
-                         <>
-                           Enviar proposta
-                           <Send size={20} />
-                         </>
-                       )}
-                     </Button>
-                   </div>
+                                     {/* Only show default submit button if description is not long enough for special buttons */}
+                   {(!form.watch('description') || form.watch('description').length < 10) && (
+                     <div className="flex justify-center pt-4">
+                       <Button 
+                         type="submit" 
+                         variant="hero" 
+                         size="lg" 
+                         className="min-w-[200px]"
+                         disabled={isLoading}
+                       >
+                         {isLoading ? (
+                           <>
+                             Enviando...
+                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                           </>
+                         ) : (
+                           <>
+                             Enviar proposta
+                             <Send size={20} />
+                           </>
+                         )}
+                       </Button>
+                     </div>
+                   )}
                   </form>
                 </Form>
               )}

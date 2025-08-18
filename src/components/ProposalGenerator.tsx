@@ -31,13 +31,14 @@ const ProposalGenerator = ({ initialDescription, onProposalGenerated }: Proposal
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const typewriterRef = useRef<HTMLDivElement>(null);
 
-  // Simulate AI responses based on user input
+  // Simulate AI responses focused on refinement
   const getAIResponse = (userMessage: string): string => {
     const responses = [
-      "Interessante! Preciso entender melhor alguns aspectos do seu projeto. Que tipo de usuários você espera atingir?",
-      "Ótima ideia! Para criar uma proposta mais detalhada, me conte: qual é o principal problema que seu projeto resolve?",
-      "Perfeito! Vou analisar sua ideia e gerar uma proposta personalizada. Você tem alguma preferência de tecnologia ou design?",
-      "Excelente conceito! Deixe-me elaborar uma proposta que vai maximizar o potencial da sua ideia...",
+      "Excelente! 🎯 Agora me conte: qual é o principal resultado que você espera alcançar com este projeto?",
+      "Perfeito! Para refinar ainda mais sua proposta, que tipo de usuários você quer impactar especificamente?",
+      "Ótimo insights! 💡 Qual seria o diferencial único que seu projeto teria no mercado?",
+      "Muito bom! Para finalizar o refinamento, você tem alguma inspiração ou referência em mente?",
+      "Fantástico! 🚀 Com essas informações vou criar uma proposta refinada que vai destacar todo o potencial da sua ideia...",
     ];
     
     return responses[Math.floor(Math.random() * responses.length)];
@@ -74,10 +75,10 @@ const ProposalGenerator = ({ initialDescription, onProposalGenerated }: Proposal
   // Generate detailed proposal simulation
   const generateDetailedProposal = () => {
     const proposal = `
-## Proposta de Projeto: ${getProjectTitle()}
+## Proposta Refinada: ${getProjectTitle()}
 
-### 🎯 Resumo Executivo
-Com base na nossa conversa, desenvolvi uma proposta personalizada que transforma sua ideia em uma solução digital completa e inovadora.
+### ✨ Resumo Executivo Aprimorado
+Após nossa conversa de refinamento, sua ideia original foi elevada a um novo patamar! Desenvolvi uma proposta estratégica que maximiza o potencial do seu conceito.
 
 ### 📋 Escopo do Projeto
 
@@ -175,7 +176,7 @@ O projeto será desenvolvido com dedicação total, utilizando as melhores prát
         const aiResponse: Message = {
           id: '2',
           type: 'ai',
-          content: "Olá! Recebi sua ideia e ela tem muito potencial! Para criar a melhor proposta possível, vou fazer algumas perguntas para entender melhor seus objetivos. Vamos começar?",
+          content: "Olá! Sua ideia já está muito boa! 🎯 Como especialista em refinamento de propostas, vou fazer algumas perguntas para deixá-la ainda mais poderosa e detalhada. Pronto para elevar sua proposta ao próximo nível?",
           timestamp: new Date()
         };
         setMessages(prev => [...prev, aiResponse]);
@@ -215,7 +216,7 @@ O projeto será desenvolvido com dedicação total, utilizando as melhores prát
     const finalMessage: Message = {
       id: Date.now().toString(),
       type: 'ai',
-      content: "Perfeito! Agora vou gerar uma proposta detalhada especialmente para seu projeto. Aguarde enquanto nossa IA analisa todas as informações...",
+      content: "Perfeito! 🎉 Agora vou refinar e potencializar sua ideia original. Com base em nossa conversa, vou criar uma proposta estratégica que vai impressionar. Preparando sua proposta refinada...",
       timestamp: new Date()
     };
     
@@ -249,9 +250,9 @@ O projeto será desenvolvido com dedicação total, utilizando as melhores prát
       {/* Chat Interface */}
       <Card className="card-gradient">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+                      <CardTitle className="flex items-center gap-2">
             <Bot className="text-primary" size={24} />
-            Assistente de Propostas IA
+            Assistente de Refinamento IA
             <Sparkles className="text-yellow-500" size={20} />
           </CardTitle>
         </CardHeader>
@@ -375,7 +376,7 @@ O projeto será desenvolvido com dedicação total, utilizando as melhores prát
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
                 <Sparkles className="text-yellow-500" size={24} />
-                Sua Proposta Personalizada
+                Sua Proposta Refinada ✨
               </span>
               <div className="flex gap-2">
                 <Button 
