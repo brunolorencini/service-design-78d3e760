@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Mail, MessageCircle, Calendar, ArrowRight, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, MessageCircle, Calendar, ArrowRight, Send, CheckCircle, AlertCircle, Sparkles, Wand2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useContactForm } from "@/hooks/use-contact-form";
+import ProposalGenerator from "./ProposalGenerator";
+import { useState } from "react";
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
@@ -20,6 +22,8 @@ const formSchema = z.object({
 });
 const Contact = () => {
   const { isLoading, error, success, submitForm, resetForm } = useContactForm();
+  const [showProposalGenerator, setShowProposalGenerator] = useState(false);
+  const [generatedProposal, setGeneratedProposal] = useState("");
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,18 +38,45 @@ const Contact = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // If we have a generated proposal, include it in the submission
+    const finalDescription = generatedProposal 
+      ? `${values.description}\n\n--- PROPOSTA GERADA PELA IA ---\n\n${generatedProposal}`
+      : values.description;
+
     await submitForm({
       name: values.name,
       email: values.email,
       phone: values.phone,
       project_type: values.projectType,
-      description: values.description,
+      description: finalDescription,
       budget: values.budget
     });
     
     if (success) {
       form.reset();
+      setGeneratedProposal("");
+      setShowProposalGenerator(false);
     }
+  };
+
+  const handleStartProposalGenerator = () => {
+    const description = form.getValues('description');
+    if (description.length >= 10) {
+      setShowProposalGenerator(true);
+    } else {
+      form.setError('description', {
+        message: 'Descreva sua ideia primeiro para usar o gerador de proposta'
+      });
+    }
+  };
+
+  const handleProposalGenerated = (proposal: string) => {
+    setGeneratedProposal(proposal);
+    setShowProposalGenerator(false);
+    // Auto-scroll to form
+    document.getElementById('contact-form')?.scrollIntoView({ 
+      behavior: 'smooth' 
+    });
   };
   const contactMethods = [{
     icon: Mail,
@@ -103,19 +134,28 @@ const Contact = () => {
 
         {/* Project Form */}
         <div className="max-w-4xl mx-auto mb-16">
-          <Card className="card-gradient">
+          <Card className="card-gradient" id="contact-form">
             <CardHeader className="text-center">
               <CardTitle className="text-3xl lg:text-4xl font-bold mb-4">
                 Conte-me sobre sua <span className="text-gradient">ideia</span>
               </CardTitle>
               <CardDescription className="text-lg">
-                Preencha o formulário abaixo e vamos conversar sobre como transformar sua ideia em realidade
+                {showProposalGenerator 
+                  ? "Nossa IA está analisando sua ideia para criar uma proposta personalizada"
+                  : "Preencha o formulário abaixo e vamos conversar sobre como transformar sua ideia em realidade"
+                }
               </CardDescription>
             </CardHeader>
             
             <CardContent className="p-8">
-              <Form {...form}>
-                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {showProposalGenerator ? (
+                <ProposalGenerator 
+                  initialDescription={form.getValues('description')}
+                  onProposalGenerated={handleProposalGenerated}
+                />
+              ) : (
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                    <div className="grid md:grid-cols-3 gap-6">
                      <FormField control={form.control} name="name" render={({
                      field
@@ -201,7 +241,43 @@ const Contact = () => {
                           <Textarea placeholder="Conte-me sobre sua ideia, objetivos, público-alvo e qualquer detalhe importante que você considera relevante..." className="min-h-[120px]" {...field} />
                         </FormControl>
                         <FormMessage />
+                        
+                        {/* Proposal Generator Button */}
+                        {field.value && field.value.length >= 10 && (
+                          <div className="mt-4 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <h4 className="font-semibold text-primary flex items-center gap-2">
+                                  <Sparkles size={20} />
+                                  Quer uma proposta personalizada?
+                                </h4>
+                                <p className="text-sm text-muted-foreground mt-1">
+                                  Nossa IA pode gerar uma proposta detalhada baseada na sua ideia
+                                </p>
+                              </div>
+                              <Button 
+                                type="button"
+                                variant="outline" 
+                                onClick={handleStartProposalGenerator}
+                                className="ml-4 border-primary/30 hover:bg-primary/10"
+                              >
+                                <Wand2 size={16} className="mr-2" />
+                                Gerar Proposta
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                       </FormItem>} />
+
+                  {/* Generated Proposal Indicator */}
+                  {generatedProposal && (
+                    <Alert className="border-blue-200 bg-blue-50 text-blue-800">
+                      <Sparkles className="h-4 w-4" />
+                      <AlertDescription>
+                        ✨ Proposta personalizada gerada! Ela será incluída automaticamente no envio.
+                      </AlertDescription>
+                    </Alert>
+                  )}
 
                   {/* Status Messages */}
                   {error && (
@@ -241,8 +317,9 @@ const Contact = () => {
                        )}
                      </Button>
                    </div>
-                </form>
-              </Form>
+                  </form>
+                </Form>
+              )}
             </CardContent>
           </Card>
         </div>
