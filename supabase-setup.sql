@@ -38,13 +38,12 @@ CREATE POLICY "Allow authenticated reads" ON contact_forms
 -- Configurar RLS (Row Level Security) para leads
 ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
 
--- Permitir inserção para usuários anônimos em leads
-CREATE POLICY "Allow anonymous inserts leads" ON leads
-  FOR INSERT WITH CHECK (true);
-
--- Permitir leitura apenas para usuários autenticados em leads (opcional)
-CREATE POLICY "Allow authenticated reads leads" ON leads
-  FOR SELECT USING (auth.role() = 'authenticated');
+-- Política que permite INSERT e SELECT para usuários anônimos (necessário para o cliente Supabase)
+CREATE POLICY "anon_insert_select_leads" ON leads
+  FOR ALL 
+  TO anon, authenticated
+  USING (true)
+  WITH CHECK (true);
 
 -- Criar índices para melhor performance
 CREATE INDEX IF NOT EXISTS idx_contact_forms_created_at ON contact_forms(created_at DESC);
