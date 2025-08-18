@@ -1,4 +1,8 @@
-# 🤖 Configuração da OpenAI API
+# 🔒 Configuração Segura da OpenAI API
+
+## 🛡️ **IMPLEMENTAÇÃO SEGURA**
+
+Esta configuração mantém sua chave OpenAI **PROTEGIDA NO SERVIDOR**, nunca exposta no frontend.
 
 ## 🔑 Como Adicionar sua Chave da API
 
@@ -8,7 +12,7 @@
 - Clique em "Create new secret key"
 - Copie a chave (começa com `sk-proj-` ou `sk-`)
 
-### 2. **Configurar no Projeto**
+### 2. **Configurar no Projeto (Desenvolvimento)**
 
 Crie um arquivo `.env.local` na raiz do projeto com o seguinte conteúdo:
 
@@ -17,16 +21,18 @@ Crie um arquivo `.env.local` na raiz do projeto com o seguinte conteúdo:
 VITE_SUPABASE_URL=https://uwcobhhtyuzjkojobenz.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3Y29iaGh0eXV6amtvam9iZW56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxODQ1OTQsImV4cCI6MjA3MDc2MDU5NH0._ou4A_QZye1dMAI0UncADmYOswrX6O39FJHDg680-SU
 
-# OpenAI Configuration - ADICIONE SUA CHAVE AQUI
-VITE_OPENAI_API_KEY=sk-proj-sua-chave-da-openai-aqui
+# OpenAI Configuration - SERVIDOR SEGURO (sem VITE_)
+OPENAI_API_KEY=sk-proj-sua-chave-da-openai-aqui
 ```
+
+⚠️ **IMPORTANTE:** Note que agora é `OPENAI_API_KEY` (sem `VITE_`), mantendo a chave segura no servidor!
 
 ### 3. **Para Produção (Vercel)**
 
 Na sua dashboard da Vercel:
 1. Vá para **Settings → Environment Variables**
 2. Adicione a variável:
-   - **Name**: `VITE_OPENAI_API_KEY`
+   - **Name**: `OPENAI_API_KEY` (SEM VITE_)
    - **Value**: sua chave da OpenAI
    - **Environment**: Production, Preview, Development
 
@@ -63,10 +69,25 @@ Na sua dashboard da Vercel:
 
 ## 🔒 Segurança
 
-⚠️ **IMPORTANTE**: 
+### ✅ **IMPLEMENTAÇÃO SEGURA ATUAL:**
+- ✅ Chave OpenAI fica **APENAS NO SERVIDOR** (Vercel Functions)
+- ✅ **NUNCA exposta** no código frontend
+- ✅ **NUNCA visível** no browser ou DevTools
+- ✅ **NUNCA incluída** no bundle JavaScript
+- ✅ Comunicação via **API routes seguras** (/api/chat)
+
+### ⚠️ **IMPORTANTE**: 
 - O arquivo `.env.local` está no `.gitignore` e não será commitado
-- Nunca compartilhe sua chave da API publicamente
-- Em produção, use sempre variáveis de ambiente seguras
+- Use `OPENAI_API_KEY` (sem VITE_) para manter no servidor
+- Nunca use `VITE_` prefix para chaves sensíveis
+- Em produção, configure apenas no Vercel Environment Variables
+
+### 🛡️ **Como a Segurança Funciona:**
+1. Frontend envia mensagem para `/api/chat`
+2. Vercel Function (servidor) recebe a requisição
+3. Servidor usa `OPENAI_API_KEY` para chamar OpenAI
+4. Resposta é enviada de volta para o frontend
+5. Chave nunca sai do ambiente servidor
 
 ## 🐛 Troubleshooting
 
