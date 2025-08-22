@@ -15,7 +15,7 @@ import { useState } from "react";
 const formSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
   email: z.string().email("Email inválido"),
-  phone: z.string().min(10, "Telefone deve ter pelo menos 10 dígitos"),
+  phone: z.string().min(8, "WhatsApp deve ter pelo menos 8 dígitos").regex(/^\+?[1-9]\d{1,14}$/, "Formato inválido. Use: +5511999999999"),
   projectType: z.string().min(1, "Selecione o tipo de projeto"),
   description: z.string().min(10, "Descrição deve ter pelo menos 10 caracteres"),
   budget: z.string().optional()
@@ -79,23 +79,23 @@ const Contact = () => {
     });
   };
   const contactMethods = [{
-    icon: Mail,
-    title: "Email",
-    description: "Mande um email com sua ideia",
-    action: "Enviar email",
-    link: "mailto:bruno.lorencini@gmail.com"
-  }, {
     icon: MessageCircle,
-    title: "WhatsApp",
-    description: "Vamos conversar no WhatsApp",
+    title: "📲 Chamar no WhatsApp",
+    description: "Resposta rápida e direta",
     action: "Iniciar conversa",
     link: "https://wa.me/351934078424"
   }, {
     icon: Calendar,
-    title: "Reunião",
-    description: "Agende uma reunião online",
+    title: "📅 Agendar reunião",
+    description: "30min para conhecer seus projetos",
     action: "Agendar",
     link: "https://calendly.com/brulorencini/30min"
+  }, {
+    icon: Mail,
+    title: "🗂️ Ver portfólio",
+    description: "Cases e resultados reais",
+    action: "Ver trabalhos",
+    link: "https://rebel-dog-6e7.notion.site/Welcome-Bem-vindo-24784a3712c7804988efd15f3ce2a582"
   }];
   return <section className="py-24 relative">
       {/* Background Elements */}
@@ -106,12 +106,13 @@ const Contact = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Vamos tirar sua ideia{" "}
-            <span className="text-gradient">do papel?</span>
+            Pronto para elevar sua agência{" "}
+            <span className="text-gradient">de patamar?</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Escolha a forma que preferir para entrar em contato. 
-            Prometo responder rapidinho!
+            👉 Respondo em até 24h<br/>
+            👉 Primeira conversa gratuita<br/>
+            👉 Sem burocracia, só resultado
           </p>
         </div>
 
@@ -180,11 +181,14 @@ const Contact = () => {
                      <FormField control={form.control} name="phone" render={({
                      field
                    }) => <FormItem>
-                           <FormLabel>WhatsApp</FormLabel>
+                           <FormLabel>WhatsApp (Internacional)</FormLabel>
                            <FormControl>
-                             <Input placeholder="(11) 99999-9999" type="tel" {...field} />
+                             <Input placeholder="+5511999999999" type="tel" {...field} />
                            </FormControl>
                            <FormMessage />
+                           <p className="text-xs text-muted-foreground mt-1">
+                             Formato: +[código país][número] - Ex: +5511999999999
+                           </p>
                          </FormItem>} />
                    </div>
 
@@ -392,14 +396,14 @@ const Contact = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
                   <a href="https://wa.me/351934078424" target="_blank" rel="noopener noreferrer">
-                    Chamar no WhatsApp
+                    📲 Chamar no WhatsApp
                     <ArrowRight size={20} />
                   </a>
                 </Button>
                 
                 <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10" asChild>
                   <a href="https://rebel-dog-6e7.notion.site/Welcome-Bem-vindo-24784a3712c7804988efd15f3ce2a582" target="_blank" rel="noopener noreferrer">
-                    Ver portfolio
+                    🗂️ Ver portfólio
                   </a>
                 </Button>
               </div>

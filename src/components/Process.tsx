@@ -1,33 +1,33 @@
-import { MessageCircle, Search, Palette, Rocket } from "lucide-react";
+import { Users, Target, Palette, Trophy } from "lucide-react";
 
 const Process = () => {
   const steps = [
     {
       number: "01",
-      icon: MessageCircle,
-      title: "Conversa",
-      description: "Você me conta sua ideia e eu entendo exatamente o que você precisa",
+      icon: Users,
+      title: "Integração",
+      description: "Você me apresenta o cliente e o escopo. Entendo as expectativas e deadlines.",
       color: "primary"
     },
     {
       number: "02", 
-      icon: Search,
-      title: "Análise",
-      description: "Estudo seu mercado e seus clientes para criar a melhor estratégia",
+      icon: Target,
+      title: "Estratégia",
+      description: "Defino plano de execução com dados, visão criativa e automações que aceleram a entrega.",
       color: "secondary"
     },
     {
       number: "03",
       icon: Palette,
-      title: "Criação",
-      description: "Desenho e desenvolvo seu projeto com foco na experiência do usuário",
+      title: "Produção",
+      description: "Entrego design, analytics, Vibe Coding e N8N rodando. Tudo testado e aprovado.",
       color: "accent"
     },
     {
       number: "04",
-      icon: Rocket,
-      title: "Lançamento",
-      description: "Seu projeto sai do papel e chega ao mundo pronto para conquistar",
+      icon: Trophy,
+      title: "Resultados",
+      description: "Você apresenta ao cliente com orgulho (e sem atraso). Eu fico nos bastidores.",
       color: "primary"
     }
   ];
@@ -47,11 +47,12 @@ const Process = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Como funciona o{" "}
-            <span className="text-gradient">processo</span>
+            Como{" "}
+            <span className="text-gradient">funciona</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Um processo simples e transparente para tirar sua ideia do papel
+            Um processo transparente que não atrapalha sua rotina. 
+            Você cuida dos clientes, eu cuido da execução.
           </p>
         </div>
 
@@ -91,12 +92,20 @@ const Process = () => {
         {/* CTA Section */}
         <div className="text-center mt-16">
           <div className="card-gradient rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Pronto para começar?</h3>
-            <p className="text-muted-foreground mb-6">
-              O primeiro passo é simples: vamos conversar sobre sua ideia
-            </p>
-            <div className="text-sm text-primary">
-              ⏱️ Resposta em até 24 horas
+            <h3 className="text-2xl font-bold mb-6">Quem já trabalhou comigo sabe</h3>
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center gap-3">
+                <span className="text-green-500 text-xl">✅</span>
+                <span><strong>50+ projetos entregues.</strong></span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-green-500 text-xl">✅</span>
+                <span><strong>9 anos ajudando agências e empresas a não perderem clientes por falha de execução.</strong></span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-green-500 text-xl">✅</span>
+                <span><strong>Atuação discreta: eu entrego, você leva o crédito.</strong></span>
+              </div>
             </div>
           </div>
         </div>

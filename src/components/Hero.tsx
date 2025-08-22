@@ -20,34 +20,36 @@ const Hero = () => {
             <div className="space-y-4 mt-5">
               <div className="flex items-center gap-2 text-secondary">
                 <Sparkles size={20} />
-                <span className="text-sm font-medium tracking-wider uppercase">Service Designer</span>
+                <span className="text-sm font-medium tracking-wider uppercase">Bruno Lorencini</span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                Transformo suas{" "}
-                <span className="text-gradient text-glow">ideias</span>{" "}
-                em projetos{" "}
-                <span className="text-gradient text-glow">reais</span>
+                Se sua agência não entrega{" "}
+                <span className="text-gradient text-glow">rápido</span>{" "}
+                e{" "}
+                <span className="text-gradient text-glow">bonito</span>,{" "}
+                seus clientes vão trocar você
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
-                Sou especialista em Analytics, Design e Product Management. 
-                Trabalho com você para tirar suas ideias do papel de forma 
-                rápida e eficiente.
+                Eu sou o cara que transforma briefing em resultado real em 
+                <strong> semanas — não em meses</strong>. O parceiro invisível 
+                que faz seus projetos chegarem ao mercado sem atrasos, 
+                sem retrabalho e sem queimar sua equipe.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="hero" size="lg" className="group" asChild>
                 <a href="https://wa.me/351934078424" target="_blank" rel="noopener noreferrer">
-                  Vamos conversar sobre seu projeto
+                  Chamar no WhatsApp
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                 </a>
               </Button>
               
               <Button variant="outline" size="lg" asChild>
                 <a href="https://rebel-dog-6e7.notion.site/Welcome-Bem-vindo-24784a3712c7804988efd15f3ce2a582" target="_blank" rel="noopener noreferrer">
-                  Ver meu trabalho
+                  Ver portfólio
                 </a>
               </Button>
             </div>
@@ -60,11 +62,11 @@ const Hero = () => {
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-secondary">24h</div>
-                <div className="text-sm text-muted-foreground">Tempo médio de resposta</div>
+                <div className="text-sm text-muted-foreground">Resposta garantida</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-accent">100%</div>
-                <div className="text-sm text-muted-foreground">Foco no resultado</div>
+                <div className="text-3xl font-bold text-accent">9</div>
+                <div className="text-sm text-muted-foreground">Anos de experiência</div>
               </div>
             </div>
           </div>
@@ -82,13 +84,13 @@ const Hero = () => {
             
             {/* Floating Cards */}
             <div className="absolute -top-6 -left-6 card-gradient rounded-xl p-4 hover-lift animate-float">
-              <div className="text-sm font-medium text-primary">Analytics</div>
-              <div className="text-xs text-muted-foreground">Dados que guiam decisões</div>
+              <div className="text-sm font-medium text-primary">📊 Analytics</div>
+              <div className="text-xs text-muted-foreground">Dados sólidos para provar ROI</div>
             </div>
             
             <div className="absolute -bottom-6 -right-6 card-gradient rounded-xl p-4 hover-lift animate-float" style={{ animationDelay: '2s' }}>
-              <div className="text-sm font-medium text-secondary">Design</div>
-              <div className="text-xs text-muted-foreground">Experiências memoráveis</div>
+              <div className="text-sm font-medium text-secondary">🎨 Design</div>
+              <div className="text-xs text-muted-foreground">Visuais que valorizam entrega</div>
             </div>
           </div>
         </div>
